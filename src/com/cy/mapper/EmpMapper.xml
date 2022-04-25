@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.mapper.EmpMapper">
+    <select id="findAll" resultType="com.cy.pojo.Emp">
+        select * from emp
+    </select>
+    <insert id="insertEmpData">
+        insert into emp (name,job,salary) values('刘备','CEO',6000);
+    </insert>
+    <select id="findAll2" resultType="com.cy.pojo.Emp">
+        select ${cols} from emp
+    </select>
+    <select id="findEmpById" resultType="com.cy.pojo.Emp">
+        select * from emp where id = ${id}
+    </select>
+    <select id="findAll4" resultType="com.cy.pojo.Emp">
+        select * from emp
+        <where>
+            <if test="minSal != null">
+                salary > #{minSal}
+            </if>
+            <if test="maxSal != null">
+                and salary <![CDATA[ < ]]> #{maxSal}
+            </if>
+        </where>
+    </select>
+    <update id="updateEmpById">
+        update emp
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="job != null and job != ''">job = #{job},</if>
+            <if test="salary != null">salary = #{salary}</if>
+        </set>
+    </update>
+    <select id="findByIds" resultType="com.cy.pojo.Emp">
+        select * from emp where id in
+        <foreach collection="list" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

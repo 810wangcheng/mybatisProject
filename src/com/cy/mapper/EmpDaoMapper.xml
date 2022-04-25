@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.dao.EmpMapper">
+  <select id="findById" resultType="com.cy.pojo.Emp">
+      select * from emp where id = #{id}
+  </select>
+
+    <sql id="empCols">id,name,job,salary</sql>
+    <select id="findAll" resultType="com.cy.pojo.Emp">
+        select <include refid="empCols"></include> from emp
+    </select>
+
+</mapper>
